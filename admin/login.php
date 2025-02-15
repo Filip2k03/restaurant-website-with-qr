@@ -46,12 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php if (isset($error)): ?>
             <p class="error"><?php echo $error; ?></p>
         <?php endif; ?>
-        <form action="login.php" method="POST">
+        <form action="login.php" method="POST" class="login-form">
             <label for="username">Username:</label>
             <input type="text" name="adminusername" required>
             <label for="password">Password:</label>
             <input type="password" name="adminpassword" required>
-            <button type="submit">Login</button>
+            <button class ="btn" type="submit">Login</button>
         </form>
     </div>
 </body>

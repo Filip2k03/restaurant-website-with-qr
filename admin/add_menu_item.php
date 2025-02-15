@@ -1,7 +1,5 @@
 <?php
 // Add new menu item and manage existing menu items
-// @author: [Thu Ya Kyaw]
-
 session_start();
 include('../includes/db.php');
 include('../includes/functions.php');
@@ -19,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $name = $_POST['name'];
         $description = $_POST['description'];
         $price = $_POST['price'];
+        $stock = $_POST['stock'];
         $qr_code = generateQRCode($name); // Function to generate QR code
 
         // Handle image upload
@@ -28,9 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             move_uploaded_file($_FILES['image']['tmp_name'], '../' . $image);
         }
 
-        $query = "INSERT INTO menu_items (name, description, price, qr_code, image) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO menu_items (name, description, price, stock, qr_code, image) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("ssdss", $name, $description, $price, $qr_code, $image);
+        $stmt->bind_param("ssdiss", $name, $description, $price, $stock, $qr_code, $image);
         $stmt->execute();
         $stmt->close();
     } elseif (isset($_POST['edit_menu_item'])) {
@@ -39,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $name = $_POST['name'];
         $description = $_POST['description'];
         $price = $_POST['price'];
+        $stock = $_POST['stock'];
 
         // Handle image upload
         $image = $_POST['existing_image'];
@@ -47,9 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             move_uploaded_file($_FILES['image']['tmp_name'], '../' . $image);
         }
 
-        $query = "UPDATE menu_items SET name = ?, description = ?, price = ?, image = ? WHERE id = ?";
+        $query = "UPDATE menu_items SET name = ?, description = ?, price = ?, stock = ?, image = ? WHERE id = ?";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("ssdsi", $name, $description, $price, $image, $id);
+        $stmt->bind_param("ssdisi", $name, $description, $price, $stock, $image, $id);
         $stmt->execute();
         $stmt->close();
     } elseif (isset($_POST['delete_menu_item'])) {
@@ -87,6 +87,7 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
             <input type="text" name="name" placeholder="Item Name" required>
             <textarea name="description" placeholder="Description" required></textarea>
             <input type="number" name="price" placeholder="Price" step="0.01" required>
+            <input type="number" name="stock" placeholder="Stock" required>
             <input type="file" name="image" accept="image/*">
             <button type="submit" name="add_menu_item">Add Item</button>
         </form>
@@ -98,6 +99,7 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
                     <th>Name</th>
                     <th>Description</th>
                     <th>Price</th>
+                    <th>Stock</th>
                     <th>Image</th>
                     <th>QR Code</th>
                     <th>Actions</th>
@@ -109,6 +111,7 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
                     <td><?php echo htmlspecialchars($item['name']); ?></td>
                     <td><?php echo htmlspecialchars($item['description']); ?></td>
                     <td><?php echo htmlspecialchars($item['price']); ?></td>
+                    <td><?php echo htmlspecialchars($item['stock']); ?></td>
                     <td><img src="../<?php echo $item['image']; ?>" alt="Image" width="50"></td>
                     <td><img src="<?php echo $item['qr_code']; ?>" alt="QR Code" width="50"></td>
                     <td>
@@ -117,7 +120,7 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
                             <input type="hidden" name="existing_image" value="<?php echo $item['image']; ?>">
                             <button type="submit" name="delete_menu_item">Delete</button>
                         </form>
-                        <button onclick="editMenuItem(<?php echo $item['id']; ?>, '<?php echo htmlspecialchars($item['name']); ?>', '<?php echo htmlspecialchars($item['description']); ?>', <?php echo $item['price']; ?>, '<?php echo $item['image']; ?>')">Edit</button>
+                        <button onclick="editMenuItem(<?php echo $item['id']; ?>, '<?php echo htmlspecialchars($item['name']); ?>', '<?php echo htmlspecialchars($item['description']); ?>', <?php echo $item['price']; ?>, <?php echo $item['stock']; ?>, '<?php echo $item['image']; ?>')">Edit</button>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -126,11 +129,12 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
     </div>
 
     <script>
-        function editMenuItem(id, name, description, price, image) {
+        function editMenuItem(id, name, description, price, stock, image) {
             document.querySelector('input[name="id"]').value = id;
             document.querySelector('input[name="name"]').value = name;
             document.querySelector('textarea[name="description"]').value = description;
             document.querySelector('input[name="price"]').value = price;
+            document.querySelector('input[name="stock"]').value = stock;
             document.querySelector('input[name="existing_image"]').value = image;
         }
     </script>

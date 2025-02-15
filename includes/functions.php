@@ -194,4 +194,30 @@ function getUserById($user_id) {
 function displayError($message) {
     echo "<div class='error'>" . $message . "</div>"; // Style this with CSS
 }
+
+function getMostPopularOrderItem() {
+    global $conn;
+    $query = "SELECT menu_items.name, COUNT(order_items.menu_item_id) AS order_count 
+              FROM order_items 
+              JOIN menu_items ON order_items.menu_item_id = menu_items.id 
+              GROUP BY order_items.menu_item_id 
+              ORDER BY order_count DESC 
+              LIMIT 1";
+    $result = $conn->query($query);
+    return $result->fetch_assoc();
+}
+
+function getOrderList() {
+    global $conn;
+    $query = "SELECT orders.id, users.username, orders.order_date, orders.total_amount, orders.status 
+              FROM orders 
+              JOIN users ON orders.user_id = users.id 
+              ORDER BY orders.order_date DESC";
+    $result = $conn->query($query);
+    $orders = [];
+    while ($row = $result->fetch_assoc()) {
+        $orders[] = $row;
+    }
+    return $orders;
+}
 ?>

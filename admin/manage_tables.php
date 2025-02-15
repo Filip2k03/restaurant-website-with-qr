@@ -57,6 +57,9 @@ $tables = getAllTables();
             <select name="status">
                 <option value="available">Available</option>
                 <option value="reserved">Reserved</option>
+                <option value="occupied">Occupied</option>
+                <option value="cleaning">Cleaning</option>
+                <option value="maintenance">Maintenance</option>
             </select>
             <button type="submit" name="add_table">Add Table</button>
         </form>
@@ -85,6 +88,9 @@ $tables = getAllTables();
                             <select name="status">
                                 <option value="available" <?php echo $table['status'] == 'available' ? 'selected' : ''; ?>>Available</option>
                                 <option value="reserved" <?php echo $table['status'] == 'reserved' ? 'selected' : ''; ?>>Reserved</option>
+                                <option value="occupied" <?php echo $table['status'] == 'occupied' ? 'selected' : ''; ?>>Occupied</option>
+                                <option value="cleaning" <?php echo $table['status'] == 'cleaning' ? 'selected' : ''; ?>>Cleaning</option>
+                                <option value="maintenance" <?php echo $table['status'] == 'maintenance' ? 'selected' : ''; ?>>Maintenance</option>
                             </select>
                             <button type="submit" name="update_table">Update</button>
                             <button type="submit" name="delete_table">Delete</button>
