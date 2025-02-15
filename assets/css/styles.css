@@ -1,0 +1,302 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Light off-white background for clean look */
+    color: #333; /* Dark text color for readability */
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+header {
+    background: linear-gradient(135deg, #4A90E2, #1D3557); /* Navy blue gradient for elegance */
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 36px;
+    font-weight: 700; /* Bold for prominence */
+}
+
+header p {
+    margin: 0;
+    font-size: 18px;
+}
+
+header img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #FFD700; /* Luxurious gold border around the image */
+    margin-top: 10px;
+}
+
+/* Navigation Bar */
+nav {
+    background: #1D3557; /* Darker shade of navy for consistency */
+    color: #fff;
+    padding: 15px 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 30px;
+}
+
+nav ul li a {
+    color: #FFD700; /* Gold for links for luxury feel */
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+nav ul li a:hover {
+    color: #fff; /* White on hover for better contrast */
+}
+
+/* Showcase Section */
+.showcase {
+    background: url('../img/showcase.jpg') no-repeat center center/cover;
+    height: 350px;
+    text-align: center;
+    color: #fff;
+    padding: 100px 0;
+}
+
+.showcase h1 {
+    margin-top: 0;
+    font-size: 60px;
+    font-weight: 700;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Shadow for text visibility */
+}
+
+.showcase p {
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+.btn {
+    display: inline-block;
+    background: #FFD700; /* Gold button */
+    color: #333;
+    padding: 12px 25px;
+    text-decoration: none;
+    margin-top: 30px;
+    font-size: 18px;
+    border-radius: 30px;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: #4A90E2; /* Hover effect changes to the primary blue */
+}
+
+/* Stats Section */
+.stats {
+    background: #1D3557; /* Same dark navy */
+    padding: 40px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.stats h1 {
+    color: #FFD700; /* Gold headers for emphasis */
+    font-size: 36px;
+}
+
+.stats p {
+    color: #fff;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+/* Card Design */
+.card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.card h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1D3557; /* Dark blue headers */
+}
+
+.card p {
+    color: #333;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #1D3557; /* Dark blue footer */
+    color: #fff;
+    font-size: 16px;
+}
+
+/* Form Styles */
+
+.container {
+    width: 100%;
+
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1.form-title {
+    text-align: center;
+    color: #1D3557;
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.error-message {
+    color: #e74c3c;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.form-input {
+    padding: 12px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: #4A90E2; /* Focus border color */
+}
+
+.form-btn {
+    padding: 12px;
+    font-size: 18px;
+    background-color: #4A90E2; /* Blue */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.form-btn:hover {
+    background-color: #1D3557; /* Darker blue on hover */
+}
+
+.register-link {
+    text-align: center;
+    font-size: 16px;
+}
+
+.register-link a {
+    color: #4A90E2;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* menu item */
+
+.menu-table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+}
+
+.menu-table th, .menu-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.menu-table th {
+    background-color: #1D3557;
+    color: #fff;
+    font-size: 18px;
+}
+
+.menu-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.menu-table td a {
+    display: inline-block;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.menu-table td a:hover {
+    opacity: 0.8;
+}
+
+
+/* Admin User Section */
+.admin-user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 2px solid #ddd; /* Lighter border */
+    background: #f9f9f9; /* Subtle light background for admin section */
+}
+
+.admin-user:hover {
+    background-color: #f0f0f0; /* Light hover effect */
+}
+
+.admin-user img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #FFD700; /* Luxurious gold border for admin profile */
+}
+
+.admin-user .username {
+    font-size: 18px;
+    color: #333;
+    font-weight: 600;
+}
+
+.admin-user .actions {
+    font-size: 16px;
+}
+
