@@ -8,9 +8,10 @@ body {
 }
 
 .container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 header {
@@ -156,15 +157,6 @@ footer {
 }
 
 /* Form Styles */
-
-.container {
-    width: 100%;
-
-    background: #fff;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
 h1.form-title {
     text-align: center;
     color: #1D3557;
@@ -233,8 +225,7 @@ form {
     text-decoration: underline;
 }
 
-/* menu item */
-
+/* Menu Item */
 .menu-table {
     width: 100%;
     margin-top: 30px;
@@ -267,7 +258,6 @@ form {
 .menu-table td a:hover {
     opacity: 0.8;
 }
-
 
 /* Admin User Section */
 .admin-user {

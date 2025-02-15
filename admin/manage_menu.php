@@ -72,71 +72,413 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/styles.css">
+
     <title>Manage Menu</title>
+
+    <style>
+
+        body {
+
+            font-family: sans-serif;
+
+            background-color: #f4f4f4; /* Example background color */
+
+            color: #333; /* Example text color */
+
+        }
+
+
+
+        .container {
+
+            width: 80%;
+
+            margin: 20px auto;
+
+            background-color: #fff;
+
+            padding: 20px;
+
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        }
+
+
+
+        h1 {
+
+            text-align: center;
+
+            color: #007bff; /* Example heading color */
+
+        }
+
+
+
+        h2 {
+
+            margin-top: 20px;
+
+            color: #333; /* Example subheading color */
+
+        }
+
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-top: 20px;
+
+        }
+
+
+
+        th, td {
+
+            padding: 10px;
+
+            text-align: left;
+
+            border-bottom: 1px solid #ddd;
+
+        }
+
+
+
+        th {
+
+            background-color: #007bff; /* Example table header color */
+
+            color: white;
+
+        }
+
+
+
+        tr:hover {
+
+            background-color: #f0f0f0; /* Example row hover color */
+
+        }
+
+
+
+        /* Form styling */
+
+        form {
+
+            margin-top: 20px;
+
+        }
+
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+        }
+
+
+
+        input[type="text"],
+
+        input[type="number"],
+
+        textarea {
+
+            width: 100%;
+
+            padding: 8px;
+
+            margin-bottom: 10px;
+
+            border: 1px solid #ccc;
+
+            box-sizing: border-box; /* Include padding in width */
+
+        }
+
+        input[type="file"]{
+
+            margin-bottom: 10px;
+
+        }
+
+
+
+        button {
+
+            background-color: #007bff; /* Example button color */
+
+            color: white;
+
+            padding: 10px 20px;
+
+            border: none;
+
+            cursor: pointer;
+
+        }
+
+        .edit-form {
+
+            display: none; /* Initially hidden */
+
+            margin-top: 20px;
+
+        }
+
+        .edit-form label{
+
+            display: block;
+
+        }
+
+        .edit-form input[type="text"],
+
+        .edit-form input[type="number"],
+
+        .edit-form textarea{
+
+            width: 100%;
+
+            padding: 8px;
+
+            margin-bottom: 10px;
+
+            border: 1px solid #ccc;
+
+            box-sizing: border-box; /* Include padding in width */
+
+        }
+
+        .edit-form button{
+
+            background-color: #007bff; /* Example button color */
+
+            color: white;
+
+            padding: 10px 20px;
+
+            border: none;
+
+            cursor: pointer;
+
+        }
+
+        img {
+
+            max-width: 50px; /* Limit image width */
+
+            height: auto;
+
+        }
+
+    </style>
+
 </head>
+
 <body>
+
     <div class="container">
+
         <h1>Manage Menu</h1>
+
+
+
         <form method="POST" action="" enctype="multipart/form-data">
+
             <h2>Add Menu Item</h2>
-            <input type="text" name="name" placeholder="Item Name" required>
-            <textarea name="description" placeholder="Description" required></textarea>
-            <input type="number" name="price" placeholder="Price" step="0.01" required>
-            <input type="number" name="stock" placeholder="Stock" required>
-            <input type="file" name="image" accept="image/*">
+
+            <label for="name">Name:</label>
+
+            <input type="text" name="name" id="name" placeholder="Item Name" required>
+
+            <label for="description">Description:</label>
+
+            <textarea name="description" id="description" placeholder="Description" required></textarea>
+
+            <label for="price">Price:</label>
+
+            <input type="number" name="price" id="price" placeholder="Price" step="0.01" required>
+
+            <label for="stock">Stock:</label>
+
+            <input type="number" name="stock" id="stock" placeholder="Stock" required>
+
+            <label for="image">Image:</label>
+
+            <input type="file" name="image" id="image" accept="image/*">
+
             <button type="submit" name="add_menu_item">Add Item</button>
+
         </form>
 
+
+
         <h2>Existing Menu Items</h2>
+
         <table>
+
             <thead>
+
                 <tr>
+
                     <th>Name</th>
+
                     <th>Description</th>
+
                     <th>Price</th>
+
                     <th>Stock</th>
+
                     <th>Image</th>
+
                     <th>QR Code</th>
+
                     <th>Actions</th>
+
                 </tr>
+
             </thead>
+
             <tbody>
+
                 <?php foreach ($menu_items as $item): ?>
+
                 <tr>
+
                     <td><?php echo htmlspecialchars($item['name']); ?></td>
+
                     <td><?php echo htmlspecialchars($item['description']); ?></td>
+
                     <td><?php echo htmlspecialchars($item['price']); ?></td>
+
                     <td><?php echo htmlspecialchars($item['stock']); ?></td>
-                    <td><img src="../<?php echo $item['image_path']; ?>" alt="Image" width="50"></td>
-                    <td><img src="<?php echo $item['qr_code']; ?>" alt="QR Code" width="50"></td>
+
+                    <td><img src="../<?php echo $item['image_path']; ?>" alt="Image"></td>
+
+                    <td><img src="<?php echo $item['qr_code']; ?>" alt="QR Code"></td>
+
                     <td>
+
                         <form method="POST" action="">
+
                             <input type="hidden" name="id" value="<?php echo $item['id']; ?>">
+
                             <input type="hidden" name="existing_image" value="<?php echo $item['image_path']; ?>">
+
                             <button type="submit" name="delete_menu_item">Delete</button>
+
                         </form>
-                        <button onclick="editMenuItem(<?php echo $item['id']; ?>, '<?php echo htmlspecialchars($item['name']); ?>', '<?php echo htmlspecialchars($item['description']); ?>', <?php echo $item['price']; ?>, <?php echo $item['stock']; ?>, '<?php echo $item['image_path']; ?>')">Edit</button>
+
+                        <button onclick="showEditForm(<?php echo $item['id']; ?>, '<?php echo htmlspecialchars($item['name']); ?>', '<?php echo htmlspecialchars($item['description']); ?>', <?php echo $item['price']; ?>, <?php echo $item['stock']; ?>, '<?php echo $item['image_path']; ?>')">Edit</button>
+
                     </td>
+
                 </tr>
+
                 <?php endforeach; ?>
+
             </tbody>
+
         </table>
+
+
+
+        <div class="edit-form" id="editForm">
+
+            <h2>Edit Menu Item</h2>
+
+            <form method="POST" action="" enctype="multipart/form-data">
+
+                <input type="hidden" name="id" value="">
+
+                <input type="hidden" name="existing_image" value="">
+
+                <label for="name">Name:</label>
+
+                <input type="text" name="name" id="editName" required>
+
+                <label for="description">Description:</label>
+
+                <textarea name="description" id="editDescription" required></textarea>
+
+                <label for="price">Price:</label>
+
+                <input type="number" name="price" id="editPrice" step="0.01" required>
+
+                <label for="stock">Stock:</label>
+
+                <input type="number" name="stock" id="editStock" required>
+
+                <label for="image">Image:</label>
+
+                <input type="file" name="image" id="editImage" accept="image/*">
+
+                <button type="submit" name="edit_menu_item">Update Item</button>
+
+                <button type="button" onclick="hideEditForm()">Cancel</button>
+
+            </form>
+
+        </div>
+
     </div>
 
+
+
     <script>
-        function editMenuItem(id, name, description, price, stock, image) {
-            document.querySelector('input[name="id"]').value = id;
-            document.querySelector('input[name="name"]').value = name;
-            document.querySelector('textarea[name="description"]').value = description;
-            document.querySelector('input[name="price"]').value = price;
-            document.querySelector('input[name="stock"]').value = stock;
-            document.querySelector('input[name="existing_image"]').value = image;
+
+        function showEditForm(id, name, description, price, stock, image) {
+
+            document.getElementById('editForm').style.display = 'block';
+
+            document.querySelector('#editForm input[name="id"]').value = id;
+
+            document.querySelector('#editForm input[name="name"]').value = name;
+
+            document.querySelector('#editForm textarea[name="description"]').value = description;
+
+            document.querySelector('#editForm input[name="price"]').value = price;
+
+            document.querySelector('#editForm input[name="stock"]').value = stock;
+
+            document.querySelector('#editForm input[name="existing_image"]').value = image;
+
+
+
+            // Set the form action (if needed)
+
+
+
         }
+
+
+
+        function hideEditForm() {
+
+            document.getElementById('editForm').style.display = 'none';
+
+        }
+
     </script>
+
 </body>
+
 </html>
