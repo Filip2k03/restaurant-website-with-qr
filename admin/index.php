@@ -31,7 +31,7 @@ $order_list = getOrderList(); // Function to get order list
         <h1>Admin Dashboard</h1>
         <nav>
             <ul>
-                <li><a href="./add_menu_item.php">Manage Menu</a></li>
+                <li><a href="./manage_menu.php">Manage Menu</a></li>
                 <li><a href="./manage_orders.php">Manage Orders</a></li>
                 <li><a href="./manage_tables.php">Manage Tables</a></li>
                 <li><a href="./pos.php">POS System</a></li>

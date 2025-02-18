@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             move_uploaded_file($_FILES['image']['tmp_name'], '../' . $image);
         }
 
-        $query = "INSERT INTO menu_items (name, description, price, stock, qr_code, image_path) VALUES (?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO menu_items (name, description, price, stock, qr_code, image) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("ssdiss", $name, $description, $price, $stock, $qr_code, $image);
         $stmt->execute();
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             move_uploaded_file($_FILES['image']['tmp_name'], '../' . $image);
         }
 
-        $query = "UPDATE menu_items SET name = ?, description = ?, price = ?, stock = ?, image_path = ? WHERE id = ?";
+        $query = "UPDATE menu_items SET name = ?, description = ?, price = ?, stock = ?, image = ? WHERE id = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("ssdisi", $name, $description, $price, $stock, $image, $id);
         $stmt->execute();
@@ -84,14 +84,15 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
     <title>Manage Menu</title>
 
     <style>
-
         body {
 
             font-family: sans-serif;
 
-            background-color: #f4f4f4; /* Example background color */
+            background-color: #f4f4f4;
+            /* Example background color */
 
-            color: #333; /* Example text color */
+            color: #333;
+            /* Example text color */
 
         }
 
@@ -117,7 +118,8 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
 
             text-align: center;
 
-            color: #007bff; /* Example heading color */
+            color: #007bff;
+            /* Example heading color */
 
         }
 
@@ -127,7 +129,8 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
 
             margin-top: 20px;
 
-            color: #333; /* Example subheading color */
+            color: #333;
+            /* Example subheading color */
 
         }
 
@@ -145,7 +148,8 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
 
 
 
-        th, td {
+        th,
+        td {
 
             padding: 10px;
 
@@ -159,7 +163,8 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
 
         th {
 
-            background-color: #007bff; /* Example table header color */
+            background-color: #007bff;
+            /* Example table header color */
 
             color: white;
 
@@ -169,7 +174,8 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
 
         tr:hover {
 
-            background-color: #f0f0f0; /* Example row hover color */
+            background-color: #f0f0f0;
+            /* Example row hover color */
 
         }
 
@@ -209,11 +215,12 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
 
             border: 1px solid #ccc;
 
-            box-sizing: border-box; /* Include padding in width */
+            box-sizing: border-box;
+            /* Include padding in width */
 
         }
 
-        input[type="file"]{
+        input[type="file"] {
 
             margin-bottom: 10px;
 
@@ -223,7 +230,8 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
 
         button {
 
-            background-color: #007bff; /* Example button color */
+            background-color: #007bff;
+            /* Example button color */
 
             color: white;
 
@@ -237,13 +245,14 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
 
         .edit-form {
 
-            display: none; /* Initially hidden */
+            display: none;
+            /* Initially hidden */
 
             margin-top: 20px;
 
         }
 
-        .edit-form label{
+        .edit-form label {
 
             display: block;
 
@@ -253,7 +262,7 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
 
         .edit-form input[type="number"],
 
-        .edit-form textarea{
+        .edit-form textarea {
 
             width: 100%;
 
@@ -263,13 +272,15 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
 
             border: 1px solid #ccc;
 
-            box-sizing: border-box; /* Include padding in width */
+            box-sizing: border-box;
+            /* Include padding in width */
 
         }
 
-        .edit-form button{
+        .edit-form button {
 
-            background-color: #007bff; /* Example button color */
+            background-color: #007bff;
+            /* Example button color */
 
             color: white;
 
@@ -283,12 +294,12 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
 
         img {
 
-            max-width: 50px; /* Limit image width */
+            max-width: 50px;
+            /* Limit image width */
 
             height: auto;
 
         }
-
     </style>
 
 </head>
@@ -332,71 +343,28 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
 
 
         <h2>Existing Menu Items</h2>
-
         <table>
-
             <thead>
-
                 <tr>
-
-                    <th>Name</th>
-
-                    <th>Description</th>
-
-                    <th>Price</th>
-
-                    <th>Stock</th>
-
-                    <th>Image</th>
-
                     <th>QR Code</th>
-
                     <th>Actions</th>
-
                 </tr>
-
             </thead>
-
             <tbody>
-
                 <?php foreach ($menu_items as $item): ?>
-
                 <tr>
-
-                    <td><?php echo htmlspecialchars($item['name']); ?></td>
-
-                    <td><?php echo htmlspecialchars($item['description']); ?></td>
-
-                    <td><?php echo htmlspecialchars($item['price']); ?></td>
-
-                    <td><?php echo htmlspecialchars($item['stock']); ?></td>
-
-                    <td><img src="../<?php echo $item['image_path']; ?>" alt="Image"></td>
-
-                    <td><img src="<?php echo $item['qr_code']; ?>" alt="QR Code"></td>
-
+                    <td><img src="<?php echo $item['qr_code']; ?>" alt="QR Code" width="50"></td>
                     <td>
-
                         <form method="POST" action="">
-
                             <input type="hidden" name="id" value="<?php echo $item['id']; ?>">
-
-                            <input type="hidden" name="existing_image" value="<?php echo $item['image_path']; ?>">
-
+                            <input type="hidden" name="existing_image" value="<?php echo $item['image']; ?>">
                             <button type="submit" name="delete_menu_item">Delete</button>
-
                         </form>
-
-                        <button onclick="showEditForm(<?php echo $item['id']; ?>, '<?php echo htmlspecialchars($item['name']); ?>', '<?php echo htmlspecialchars($item['description']); ?>', <?php echo $item['price']; ?>, <?php echo $item['stock']; ?>, '<?php echo $item['image_path']; ?>')">Edit</button>
-
+                        <button onclick="showEditForm(<?php echo $item['id']; ?>, '<?php echo htmlspecialchars($item['name']); ?>', '<?php echo htmlspecialchars($item['description']); ?>', <?php echo $item['price']; ?>, <?php echo $item['stock']; ?>, '<?php echo $item['image']; ?>')">Edit</button>
                     </td>
-
                 </tr>
-
                 <?php endforeach; ?>
-
             </tbody>
-
         </table>
 
 
@@ -444,7 +412,6 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
 
 
     <script>
-
         function showEditForm(id, name, description, price, stock, image) {
 
             document.getElementById('editForm').style.display = 'block';
@@ -476,7 +443,6 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
             document.getElementById('editForm').style.display = 'none';
 
         }
-
     </script>
 
 </body>

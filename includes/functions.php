@@ -32,9 +32,7 @@ function getTotalMenuItems() {
 }
 
 function generateQRCode($data) {
-    // This function generates a QR code for the given data
-    // You can use a library like PHP QR Code to implement this
-    // Example: return QRcode::png($data);
+    return "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=thuyakyaw.vercel.app";
 }
 
 function getMenuItems() {

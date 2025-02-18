@@ -7,20 +7,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = trim($_POST['password']);
     $email = trim($_POST['email']);
 
-    if (!empty($username) && !empty($password) && !empty($email)) {
+    $errors = []; // Array to store error messages
+
+    if (empty($username)) {
+        $errors[] = "Username is required.";
+    }
+    if (empty($password)) {
+        $errors[] = "Password is required.";
+    }
+    if (empty($email)) {
+        $errors[] = "Email is required.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Invalid email format.";
+    }
+
+    // Check for username uniqueness
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->fetch_assoc()['COUNT(*)'] > 0) {
+        $errors[] = "Username already exists.";
+    }
+    $stmt->close();
+
+
+    if (empty($errors)) { // No errors, proceed with registration
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $query = "INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, 'user')";
-        $stmt = $conn->prepare($query);
+
+        $stmt = $conn->prepare("INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, 'user')");
         $stmt->bind_param("sss", $username, $hashed_password, $email);
 
         if ($stmt->execute()) {
+            $stmt->close();
             header('Location: login.php?success=Registration successful. Please log in.');
             exit();
         } else {
-            $error = "Registration failed. Please try again.";
+            // Log the error for debugging (but don't show the detailed error to the user)
+            error_log("Registration error: " . $stmt->error);
+            $errors[] = "Registration failed. Please try again."; // Generic error message
         }
-    } else {
-        $error = "All fields are required.";
+        $stmt->close();
+    }
+
+    // If there are errors, redirect back to the registration form with error messages in the URL
+    if (!empty($errors)) {
+        $error_string = implode("&", array_map(function($val) { return "error[]=" . urlencode($val); }, $errors));
+        header("Location: register.php?" . $error_string);
+        exit();
     }
 }
 ?>
@@ -37,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="container">
         <h1>Register</h1>
         <?php if (isset($error)) { echo "<p class='error'>$error</p>"; } ?>
-        <form action="register.php" method="POST">
+        <form action="register.php" method="POST" class="login-form">
             <label for="username">Username:</label>
             <input type="text" name="username" id="username" required>
             <label for="email">Email:</label>

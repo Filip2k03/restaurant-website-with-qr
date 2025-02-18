@@ -9,25 +9,16 @@ if (isset($_GET['item_id'])) {
 
     if ($menu_item) {
         // Generate QR code for the menu item
-        $qr_code_data = "http://localhost:8000/user/menu.php?item_id=" . $item_id; // URL to the menu item
+        $qr_code_data = "https://api.qrserver.com/v1/create-qr-code/?data=thuyakyaw.vercel.app" . $item_id; // URL to the menu item
         $qr_code_image = generateQRCode($qr_code_data); // Function to generate QR code
     } else {
         echo "Menu item not found.";
         exit();
     }
-
-
-
-function generateQRCode($data) {
-    // Use a QR code library or API to generate the QR code
-    // For example, using Google's Chart API
-    return "https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=" . urlencode($data);
-}
 } else {
     echo "Invalid item ID.";
     exit();
 }
-
 ?>
 
 <!DOCTYPE html>

@@ -20,21 +20,21 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
 <body>
     <div class="container">
         <h1>Order</h1>
-        <form method="POST" action="place_order.php">
+        <form method="POST" action="order_confirmation.php">
             <ul>
                 <?php foreach ($menu_items as $item): ?>
                 <li>
                     <h2><?php echo htmlspecialchars($item['name']); ?></h2>
                     <p><?php echo htmlspecialchars($item['description']); ?></p>
                     <p>Price: <?php echo htmlspecialchars($item['price']); ?></p>
-                    <img src="../<?php echo $item['image']; ?>" alt="Image" width="100">
+                    <img src="../<?php echo $item['image_path']; ?>" alt="Image">
                     <img src="<?php echo $item['qr_code']; ?>" alt="QR Code" width="50">
                     <input type="number" name="quantity[<?php echo $item['id']; ?>]" value="1" min="1" max="10">
                     <input type="checkbox" name="menu_items[]" value="<?php echo $item['id']; ?>"> Add to Order
                 </li>
                 <?php endforeach; ?>
             </ul>
-            <button type="submit">Place Order</button>
+            <button type="submit" onclick="">Place Order</button>
         </form>
     </div>
 </body>

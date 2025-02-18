@@ -82,6 +82,7 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
 <body>
     <div class="container">
         <h1>Manage Menu</h1>
+
         <form method="POST" action="" enctype="multipart/form-data">
             <h2>Add Menu Item</h2>
             <input type="text" name="name" placeholder="Item Name" required>
@@ -95,24 +96,10 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
         <h2>Existing Menu Items</h2>
         <table>
             <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Image</th>
-                    <th>QR Code</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+                </thead>
             <tbody>
                 <?php foreach ($menu_items as $item): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($item['name']); ?></td>
-                    <td><?php echo htmlspecialchars($item['description']); ?></td>
-                    <td><?php echo htmlspecialchars($item['price']); ?></td>
-                    <td><?php echo htmlspecialchars($item['stock']); ?></td>
-                    <td><img src="../<?php echo $item['image']; ?>" alt="Image" width="50"></td>
                     <td><img src="<?php echo $item['qr_code']; ?>" alt="QR Code" width="50"></td>
                     <td>
                         <form method="POST" action="">
@@ -126,17 +113,20 @@ $menu_items = $result->fetch_all(MYSQLI_ASSOC);
                 <?php endforeach; ?>
             </tbody>
         </table>
+
+        <form id="editForm" method="POST" action="" enctype="multipart/form-data" style="display:none;">  
+            <input type="hidden" name="id">
+            <input type="hidden" name="existing_image"> <input type="text" name="name" placeholder="Item Name" required>
+            <textarea name="description" placeholder="Description" required></textarea>
+            <input type="number" name="price" placeholder="Price" step="0.01" required>
+            <input type="number" name="stock" placeholder="Stock" required>
+            <input type="file" name="image" accept="image/*">
+            <button type="submit" name="edit_menu_item">Save Changes</button>
+        </form>
+
     </div>
 
-    <script>
-        function editMenuItem(id, name, description, price, stock, image) {
-            document.querySelector('input[name="id"]').value = id;
-            document.querySelector('input[name="name"]').value = name;
-            document.querySelector('textarea[name="description"]').value = description;
-            document.querySelector('input[name="price"]').value = price;
-            document.querySelector('input[name="stock"]').value = stock;
-            document.querySelector('input[name="existing_image"]').value = image;
-        }
-    </script>
+
+
 </body>
 </html>
